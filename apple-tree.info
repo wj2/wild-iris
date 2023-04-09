@@ -1,0 +1,16 @@
+[picture]
+path = apple-tree-fruit-wikipedia.jpg
+color_point = 642, 736
+crop_window = 0, 0
+orientation = vertical
+source_text = By Aomorikuma - Sony Cyber-shot DSC-H3, CC BY-SA 3.0
+source_url = https://commons.wikimedia.org/w/index.php?curid=3765259
+
+[info]
+Blooming period = Spring
+Type = Deciduous tree
+Family = Rosaceae
+Notes = In addition to their flowers and fruit, apple trees also have notable fall color.
+Sun requirement = Sun, can tolerate partial shade
+Soil requirement = Any but waterlogged
+Sources = encyclopedia

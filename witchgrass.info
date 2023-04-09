@@ -1,0 +1,17 @@
+[picture]
+path = 2801optimized.jpg
+color_point = 147, 193
+crop_window = 0, 0
+source_text = WeedID, U Missouri
+source_url = https://weedid.missouri.edu/weedinfo.cfm?weed_id=195
+
+[info]
+Blooming period = Summer
+Other names = Panicum capillare
+Family = Poaceae
+Type = Annual herbaceous grass
+Notes = Widely considered a weed, witchgrass flowers release seeds that can travel far
+      on the wind. 
+Soil requirement = Dry, sandy, waste places, cultivated ground
+Sources = encyclopedia,
+https://soilcropandmore.info/crops/Grasses/Witchgrass/Witchgrass-Panicum-capillare.htm

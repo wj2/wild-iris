@@ -1,0 +1,17 @@
+[picture]
+path = Iris_reticulata.jpg
+color_point = 748, 793
+crop_window = 0, 200
+center = middle middle
+source_text = By Rasbak, CC BY-SA 3.0
+source_url = https://commons.wikimedia.org/w/index.php?curid=121487
+
+[info]
+Blooming period = Spring to early Summer
+Family = Iridaceae
+Type = Herbaceous, deciduous or evergreen perennial bulb or rhizome
+Notes = There are a multitude of wild-growing and cultivated irises, in numerous colors.
+      Iris flowers typically have three large "falls" (downturned petals) and three smaller "standards" (upturned petals).
+Sun requirement = Full
+Soil requirement = Rich, well-drained, slightly alkaline. 
+Sources = encyclopedia

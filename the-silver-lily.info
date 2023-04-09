@@ -1,0 +1,19 @@
+[picture]
+path = lily-6142496_1280.jpg
+color_point = 838, 332
+crop_window = 0, 75
+center = middle middle
+source_text = Pixabay License
+source_url = https://pixabay.com/photos/lily-flower-plant-petals-6142496/
+
+[info]
+Blooming period = Summer
+Type = Herbaceous perennial bulb
+Family = Liliaceae
+Notes = There are many different varieties of lily, flowering in many different
+      colors. 
+Sun requirement = Full sun. 
+Soil requirement = Well-drained. 
+Sources = encyclopedia,
+# not sure about this -- maybe some other type of lily or related species
+

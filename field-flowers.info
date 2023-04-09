@@ -1,0 +1,23 @@
+[picture]
+path = vermont-wildflower-farm.jpg
+color_point = 723, 763
+crop_window = 0, 200
+center = middle middle
+source_text = Review by Barbara A on TripAdvisor
+source_url = https://www.tripadvisor.com/Attraction_Review-g57211-d283008-Reviews-Vermont_Wildflower_Farm-Charlotte_Vermont.html#/media-atf/283008/70861619:p/?albumid=-160&type=0&category=-160
+
+[info]
+Notes = Hundreds of different flowering plants grow wild in Vermont from
+      spring through to fall. Many of the species mentioned elsewhere
+      in the book can be found growing wild. Below, we have reproduced
+      several species reported to grow in a field in the Landon Community,
+      South Hero, Vermont. 
+Wild madder (Bedstraw) = Clusters of small, four-petaled white flowers on
+     stems. Forms in large patches.
+Common fleabane = Bunches of flowers on stems, consisting of hundreds of
+       bristle-like rays surrounding a central yellow disk.
+Tall buttercup = Yellow flowers with wide petals on tall, erect stalks.
+Cow vetch = Clusters of purple-blue flowers that ascend the stem.
+Source = https://static1.squarespace.com/static/58fa0af0a5790a4f1949c8b3/t/58fa510febbd1a8dd153d226/14927/99799953/LCT-Wildflower-Guide-1.pdf
+
+
