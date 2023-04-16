@@ -1,0 +1,16 @@
+[picture]
+path = pine.jpg
+color_point = 960, 624
+crop_window = 0, 0
+orientation = horizontal
+center = middle middle
+source_text = Famartin, CC BY-SA
+source_url = https://commons.wikimedia.org/wiki/File:2013-05-12_11_23_41_Pitch_Pine_trees_and_view_west_from_the_Hoeferlin_Trail_in_Ramapo_Mountain_State_Forest_in_New_Jersey.jpg
+
+[info]
+Type = Coniferous, evergreen tree
+Family = Pinaceae
+Notes = The cones produced by pines can ripen over multiple years, from green to brown. The pinaceae family includes pines, firs, cedars, hemlocks, larches, and spruces. 
+Sun requirement = Full sun
+Soil requirement = Acidic, mostly well-drained
+Sources = encyclopedia, https://en.wikipedia.org/wiki/Pine

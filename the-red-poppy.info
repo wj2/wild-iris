@@ -4,6 +4,7 @@ color_point = 310, 252
 crop_window = 100, 0
 source_text = Pixabay License
 source_url = https://pixabay.com/photos/poppy-flower-field-red-flower-50590/
+box_side = right
 
 
 [info]

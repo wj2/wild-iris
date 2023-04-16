@@ -1,11 +1,11 @@
 [picture]
-path = LAWN_0_Lamium_White-Nancy.1490715086.jpg
+path = lam.Jpg
 color_point = 364, 557
 crop_window = 0, 0
-center = top middle
-orientation = vertical
-source_text = Bluestone Perennials
-source_url = https://www.bluestoneperennials.com/LAWN.html
+center = bottom middle
+orientation = horizontal
+source_text = White Flower Farm
+source_url = https://www.whiteflowerfarm.com/32690-product.html
 
 [info]
 Blooming period = Spring to Summer

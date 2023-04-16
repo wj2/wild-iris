@@ -47,13 +47,12 @@ def resave_images(folder, template='.*\.info$', image_folder='pictures',
             crop_img = img.crop(box=(box_lb[0], box_lb[1],
                                      box_lb[0] + h_len, box_lb[1] + v_len))
             crop_img = crop_img.resize(resize_targ)
-            print(resize_targ)
             img_arr = np.asarray(img)
             if info is not None:
                 pt = _convert_list(img_info.get('color_point'), typefunc=int)
             else:
                 pt = (0, 0)
-            col = ','.join(str(num) for num in img_arr[pt[1], pt[0]])
+            col = ','.join(str(num) for num in img_arr[pt[1], pt[0]][:3])
             new_folder = os.path.join(out_folder, pic_folder)
             if not os.path.isdir(new_folder):
                 os.mkdir(new_folder)
@@ -63,6 +62,7 @@ def resave_images(folder, template='.*\.info$', image_folder='pictures',
 
 def check_images(folder, **kwargs):
     for (info, img) in get_images(folder, **kwargs):
+        print(info.get('path'))
         f, ax = plot_img(img, info)
         plt.show(block=True)
 
@@ -126,7 +126,7 @@ def plot_img(img, info=None, ax=None, fwid=8, horizontal=True,
     img_arr = np.asarray(img)
     ## might want to resize along with cropping
     ## could add here
-    ## NOT WORKING CORRECTLY, TEST MORE    
+    ## NOT WORKING CORRECTLY, TEST MORE
     ax_col.imshow(img_arr[pt[1]:pt[1]+1, pt[0]:pt[0]+1])
     ax_img.plot([pt[0]], [pt[1]], 'o')
     f.suptitle(img.filename)

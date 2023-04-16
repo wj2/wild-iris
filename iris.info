@@ -1,10 +1,10 @@
 [picture]
-path = Iris_reticulata.jpg
-color_point = 748, 793
+path = iris-colorado-wildflower.png
+color_point = 880, 339
 crop_window = 0, 200
 center = middle middle
-source_text = By Rasbak, CC BY-SA 3.0
-source_url = https://commons.wikimedia.org/w/index.php?curid=121487
+source_text = Colorado Wildflower
+source_url = https://coloradowildflower.com/wildflower/wild-iris/
 
 [info]
 Blooming period = Spring to early Summer

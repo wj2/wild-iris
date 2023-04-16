@@ -1,11 +1,12 @@
 [picture]
-path = 20180428Ranunculus_bulbosus2.jpg
-color_point = 839, 1798
+path = buttercup-warren-dunes.jpg
+color_point = 1254, 1382
 crop_window = 0, 0
-orientation = vertical
+orientation = horizontal
 center = middle middle
-source_text = By AnRo0002 - Own work, CC0
-source_url = https://commons.wikimedia.org/w/index.php?curid=68791135
+source_text = By ????? - CC BY 2.0
+source_url = https://commons.wikimedia.org/wiki/File:Swamp_buttercup_at_Warren_Dunes_(2504578898).jpg
+box_side = right
 
 [info]
 Blooming period = early Summer

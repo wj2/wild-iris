@@ -15,7 +15,8 @@ a {
 
 body.flower_page {
     background-color: rgb(50, 50, 50);
-    
+    display: flex;
+    justify-content: center;
 }
 
 body.org_page {
@@ -67,8 +68,6 @@ body.org_page p {
     opacity: 1;
 }
 
-
-
 /* Page org */
 div.wi_horizontal_page {
     background-repeat: no-repeat;
@@ -113,7 +112,6 @@ div.flower_box{
     border-width: 3px;
     position: absolute;
     bottom: 0in;
-    left: 0in;
 }
 
 div.picture_link {

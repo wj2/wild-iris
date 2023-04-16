@@ -1,11 +1,11 @@
 [picture]
-path = Morning-glory-C6295b.jpg
-color_point = 834, 670
+path = ipomoea-large.jpg
+color_point = 1967, 1501
 crop_window = 0, 0
 center = middle middle
-orientation = vertical
-source_text = Frank J. Gualtieri Jr., Public Domain
-source_url = https://commons.wikimedia.org/w/index.php?curid=8014099
+orientation = horizontal
+source_text = Vengolis - CC BY-SA 3.0
+source_url = https://commons.wikimedia.org/wiki/File:Ipomoea_cairica_35.jpg
 
 [info]
 Blooming period = Summer to early Fall

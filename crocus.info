@@ -5,6 +5,7 @@ crop_window = 0, 100
 center = middle middle
 source_text = By Meneerke bloem - Own work, CC BY-SA 3.0
 source_url = https://commons.wikimedia.org/w/index.php?curid=11894961
+box_side = right
 
 [info]
 Blooming period = late Winter to early Spring, some Fall

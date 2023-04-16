@@ -1,11 +1,11 @@
 [picture]
-path = BLIGG-0-Lily-Guinea-Gold-22-dv.jpg
-color_point = 707, 621
+path = gold-band.jpg
+color_point = 1115, 453
 crop_window = 0, 0
 center = middle middle
-orientation = vertical
-source_text = Bluestone Perennials
-source_url = https://www.bluestoneperennials.com/BLIGG.html#fp-image-0
+orientation = horizontal
+source_text = Conservation Garden Park
+source_url = https://conservationgardenpark.org/plants/1025/gold-band-lily
 
 [info]
 Blooming period = late Summer to Fall

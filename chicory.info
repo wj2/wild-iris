@@ -1,11 +1,11 @@
 [picture]
-path = Cichorium_intybus_Slovakia.jpg
-color_point = 439, 613
+path = chicory-close.jpg
+color_point = 1352, 1113
 crop_window = 0, 0
 center = middle middle
-orientation = vertical
-source_text = Seweryn Olkowicz, CC BY 2.5
-source_url = https://commons.wikimedia.org/w/index.php?curid=1465251
+orientation = horizontal
+source_text = By Norbert Nagel - CC BY-SA 3.0
+source_url = https://commons.wikimedia.org/wiki/File:Cichorium_intybus_-_Chicory_flower_-_Wegwarte_01.jpg
 
 [info]
 Blooming period = Summer to Fall
@@ -15,4 +15,4 @@ Type = Herbaceous (somewhat woody) annuals, biennials, and perennials
 Notes = The leaves of the plant are edible. The root has been used as a sweetener and source of fiber. 
 Sun requirement = Full sun 
 Soil requirement = Well-drained
-Sources = encyclopedia, wikipedia
+Sources = encyclopedia, https://en.wikipedia.org/wiki/Chicory

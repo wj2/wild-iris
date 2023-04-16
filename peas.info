@@ -1,14 +1,15 @@
 [picture]
-path = Snow_Pea_on_Plant.JPG
-color_point = 1261, 1905
+path = peas-2.jpg
+color_point = 845, 561
 crop_window = 0, 0
-orientation = vertical
+orientation = horizontal
 center = middle middle
-source_text = By JS - JS, CC BY-SA 3.0
-source_url = https://commons.wikimedia.org/w/index.php?curid=10690536
+source_text = K. Dave, The Spruce
+source_url = https://www.thespruce.com/garden-vs-snow-and-sugar-snap-1403487
+box_side = right
 
 [info]
 Type = Herbaceous annual
 Family = Fabaceae
 Notes = Pea plants reach maturity about sixty days after planting. Peas do not thrive in the heat of summer. 
-Sources = wikipedia
+Sources = https://en.wikipedia.org/wiki/Pea

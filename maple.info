@@ -1,11 +1,11 @@
 [picture]
-path = maple-attribute.JPG
-color_point = 1112, 521
+path = maple-2.jpg
+color_point = 960, 624
 crop_window = 0, 0
-orientation = vertical
+orientation = horizontal
 center = middle middle
-source_text = By Famartin - Own work, CC BY-SA 4.0
-source_url = https://commons.wikimedia.org/w/index.php?curid=36970075
+source_text = Sylvan Gardens
+source_url = https://sylvangardenslandscape.com/plant-profile/sugar-maple-green-mountain-plant-profile/
 
 [info]
 Blooming period = late Spring

@@ -1,10 +1,12 @@
 [picture]
-path = apple-tree-fruit-wikipedia.jpg
-color_point = 642, 736
+path = apple-tree_distant.jpg
+color_point = 599, 921
 crop_window = 0, 0
-orientation = vertical
-source_text = By Aomorikuma - Sony Cyber-shot DSC-H3, CC BY-SA 3.0
-source_url = https://commons.wikimedia.org/w/index.php?curid=3765259
+orientation = horizontal
+center = middle middle
+source_text = By Maseltov - CC BY-SA 2.0 DE
+source_url = https://commons.wikimedia.org/wiki/File:Apfelbaum_Winterrambour_Hochstamm.jpg
+box_side = right
 
 [info]
 Blooming period = Spring

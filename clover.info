@@ -1,11 +1,11 @@
 [picture]
-path = Trifolium_pratense_-_Keila2.jpg
-color_point = 2356, 1525
+path = clover-mixed.jpg
+color_point = 1135, 1758
 crop_window = 0, 0
-orientation = vertical
+orientation = horizontal
 center = middle middle
-source_text = By Ivar Leidus - Own work, CC BY-SA 4.0
-source_url = https://commons.wikimedia.org/w/index.php?curid=50438310
+source_text = By Forest & Kim Starr - CC BY 3.0
+source_url = https://commons.wikimedia.org/wiki/File:Starr_070313-5645_Trifolium_repens.jpg
 
 [info]
 Blooming period = late Spring to Summer

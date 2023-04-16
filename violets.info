@@ -1,11 +1,11 @@
 [picture]
-path = Viola_adunca_5819.JPG
-color_point = 1499, 1718
+path = violets-2.jpg
+color_point = 826, 741
 crop_window = 0, 0
 center = middle middle
-orientation = vertical
-source_text = By Walter Siegmund (talk) - Own work, CC BY-SA 3.0
-source_url = https://commons.wikimedia.org/w/index.php?curid=4592922
+orientation = horizontal
+source_text = Encyclopedia Britanica
+source_url = https://www.britannica.com/plant/African-violet#/media/1/8416/188222
 
 [info]
 Blooming period = late Spring to Summer

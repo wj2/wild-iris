@@ -1,11 +1,12 @@
 [picture]
-path = foxglove-wiki.jpg
-color_point = 817, 742
+path = Common-foxglove.jpg
+color_point = 456, 556
 crop_window = 0, 0
-center = top middle
-orientation = vertical
-source_text = By I, Jörg Hempel, CC BY-SA 3.0 de
-source_url = https://commons.wikimedia.org/w/index.php?curid=2673490
+center = middle middle
+orientation = horizontal
+source_text = Encyclopedia Britannica 
+source_url = https://www.britannica.com/science/digitalis#/media/1/163351/121973
+box_side = right
 
 [info]
 Blooming period = Summer

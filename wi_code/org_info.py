@@ -1,12 +1,16 @@
 
 import collections as c
 
+pre_toc = c.OrderedDict()
+pre_toc['Introduction'] = 'introduction.html'
+pre_toc['License and other matters'] = 'license.html'
+
 toc = c.OrderedDict()
-toc[('The Wild Iris', 1)] = ('iris',)
-toc[('Matins', 2)] = ('white-daffodil', 'wild-violets')
+toc[('The Wild Iris', 1)] = ('iris', 'pine')
+toc[('Matins', 2)] = ('white-daffodil', 'wild-violets', 'birch')
 toc[('Matins', 3)] = ()
-toc[('Trillium', 4)] = ('trillium',)   
-toc[('Lamium', 5)] = ('lamium',)
+toc[('Trillium', 4)] = ('trillium', 'pine', 'fir')   
+toc[('Lamium', 5)] = ('lamium', 'maple')
 toc[('Snowdrops', 6)] = ('snowdrops',)
 toc[('Clear Morning', 7)] = ('blue-clematis',)
 toc[('Spring Snow', 9)] = ()
@@ -59,6 +63,7 @@ toc[('The White Lilies', 63)] = ('the-white-lilies', 'poppies')
 
 post_toc = c.OrderedDict()
 post_toc['Glossary'] = 'glossary.html'
+post_toc['References'] = 'references.html'
 
 glossary = c.OrderedDict()
 glossary['annual'] = """

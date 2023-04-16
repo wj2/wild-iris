@@ -1,0 +1,16 @@
+[picture]
+path = fir.jpg
+color_point = 960, 624
+crop_window = 0, 0
+orientation = horizontal
+center = middle middle
+source_text = Rafael Saldaña, CC BY 2.0
+source_url = https://commons.wikimedia.org/wiki/File:Abies_religiosa,_Parque_Nacional_El_Chico,_Hidalgo,_Mexico_1.jpg
+
+[info]
+Type = Coniferous, evergreen tree
+Family = Pinaceae
+Notes = The pinaceae family includes pines, firs, cedars, hemlocks, larches, and spruces.
+Sun requirement = Full or partial sun
+Soil requirement = Moist, well-drained
+Sources = encyclopedia, https://en.wikipedia.org/wiki/Fir
