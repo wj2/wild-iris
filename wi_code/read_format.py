@@ -222,9 +222,16 @@ ordered_fields = (
     "Blooming period",
     "Sun requirement",
     "Soil requirement",
-    "Notes",
 )
 last_fields = ("Notes", "Sources",)
+
+
+def _make_additional_fields(fields, poem_key):
+    flower_name = poem_key.split('_')[0]
+    new_fields = tuple(
+        f for f in fields if re.match(flower_name + '_[0-9]+', f) is None
+    )
+    return new_fields
 
 
 def format_detail(
@@ -235,13 +242,15 @@ def format_detail(
     detail_template=detail_template,
     last_fields=last_fields,
     sources=None,
+    glossary=None,
 ):
     if sources is None:
         sources = c.OrderedDict()
     ordered_lower = list(of.lower() for of in ordered_fields + last_fields)
     additional_fields = set(info.keys()).difference(ordered_lower)
-    field_order = (ordered_fields + tuple(additional_fields) +
-                   (poem_key,) + tuple(last_fields))
+    additional_fields = _make_additional_fields(additional_fields, poem_key)
+    field_order = ((poem_key,) + ordered_fields + tuple(additional_fields) +
+                   tuple(last_fields))
     out_str = ""
     for field in field_order:
         txt = info.get(field)
@@ -250,10 +259,72 @@ def format_detail(
                 txt = format_sources(txt, sources)
             elif field == poem_key:
                 pg_num = field.split('_')[1]
-                field = poem_name + ' (page {})'.format(pg_num)
+                field = '_{}_ (page {})'.format(poem_name, pg_num)
+            elif field == "Type" and glossary is not None:
+                txt = link_glossary(txt, glossary)
             add_str = detail_template.format(title=field, info=txt)
             out_str = out_str + add_str + "\n"
     return out_str, sources
+
+
+def make_page(
+    folder,
+    flower,
+    poem_name,
+    poem_page,
+    file_suffix=".info",
+    picture_folder="formatted_pictures/{templ}/",
+    use_gloss=oi.glossary,
+    sources=None,
+):
+    """
+    this reads a particular set of files and formats them into a markdown
+    string for conversion to html or latex
+    """
+    main_info = os.path.join(folder, flower) + file_suffix
+    poem_key = flower + '_{}'.format(poem_page)
+    add_info = os.path.join(folder, poem_key) + file_suffix
+
+    flower_name = format_flower_name(flower)
+    parser = read_info(main_info, add_info, folder=folder)
+    detail, sources = format_detail(
+        parser["info"],
+        poem_key,
+        poem_name,
+        sources=sources,
+        glossary=use_gloss,
+    )
+    page_txt = main_template.format(flower_name=flower_name, detail=detail)
+    page_html = mk2.markdown(page_txt)
+
+    pic_file = parser["picture"].get("path")
+    orientation = parser["picture"].get("orientation")
+    if orientation is None:
+        orientation = "horizontal"
+    p_source_link = parser["picture"].get("source_url")
+    p_source_text = parser["picture"].get("source_text")
+
+    box_side = parser["picture"].get("box_side", "left")
+
+    flower_folder = picture_folder.format(templ=flower)
+    flower_pic = os.path.join(flower_folder, pic_file)
+    col_file = open(os.path.join(flower_folder, "color.pkl"), "rb")
+    flower_col = pickle.load(col_file)
+
+    page = page_template.format(
+        flower_name=flower_name,
+        image_url=flower_pic,
+        flower_color=flower_col,
+        box_html=page_html,
+        orientation=orientation,
+        pic_source_link=p_source_link,
+        pic_source_text=p_source_text,
+        poem_name=poem_name,
+        box_side=box_side,
+    )
+
+    page_name = poem_key + ".html"
+    return flower_name, page_name, page, flower_col, sources
 
 
 def read_files(
@@ -320,6 +391,7 @@ def link_glossary(html, term_dict, repl_templ=inner_gloss_link):
         pattern = "(semi-)?{term}[,s)]?".format(term=term)
         term_re = re.compile(pattern, re.I)
         m = re.search(term_re, html)
+        definition = "{}: {}".format(term, definition.replace('\n', ''))
         if m is not None:
             repl_str = m.group()
             new_str = repl_templ.format(
@@ -329,7 +401,8 @@ def link_glossary(html, term_dict, repl_templ=inner_gloss_link):
             html = html.replace(repl_str, goofy)
             replacements.append((goofy, new_str))
     for r_s, n_s in replacements:
-        html = html.replace(r_s, n_s)
+        print(r_s, n_s.strip('\n'))
+        html = html.replace(r_s, n_s.strip('\n'))
     return html
 
 
@@ -373,20 +446,22 @@ def make_html(
     pre_item_html_templ=inner_html,
     **kwargs
 ):
-    page_dict, source_dict = read_files(folder, **kwargs)
-
-    ref_dict = {}
-    for fname, (flower_name, page, flower_color) in page_dict.items():
-        save_name = fname + "_{pg_num}.html"
-        ref_dict[fname] = (flower_name, save_name, page, flower_color)
+    sources = {}
     toc_lines = []
     write_later = []
     for (poem_name, poem_page), flowers in use_toc.items():
         toc_lines.append(toc_main.format(poem_name=poem_name))
         for flower in flowers:
-            
-            
-            flower_name, page_name, page, flower_color = ref_dict[flower]
+            out = make_page(
+                folder,
+                flower,
+                poem_name,
+                poem_page,
+                sources=sources,
+                **kwargs
+            )
+            flower_name, page_name, page, flower_color, sources = out
+
             page_loc = page_name.format(pg_num=poem_page)
             write_later.append((page_loc, poem_name, flower_name, page, flower_color))
             toc_lines.append(toc_sub.format(flower_name=flower_name, page_loc=page_loc))
@@ -468,7 +543,7 @@ def make_html(
         f.write(gloss_full)
 
     source_lines = []
-    for _, (ind, fs) in source_dict.items():
+    for _, (ind, fs) in sources.items():
         source_lines.append(source_line_templ.format(fs=fs, ind=ind))
     source_mkd = source_mkd_templ.format(items="\n".join(source_lines))
     source_html = mk2.markdown(source_mkd)
@@ -479,7 +554,7 @@ def make_html(
         f.write(source_full)
 
 
-def read_info(fl, folder=""):
+def read_info(*fls, folder=""):
     parser = configparser.ConfigParser()
-    info = parser.read(os.path.join(folder, fl))
+    _ = parser.read(list(os.path.join(folder, fl) for fl in fls))
     return parser

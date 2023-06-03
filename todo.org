@@ -1,0 +1,40 @@
+
+* Overall
+** DONE Decide on formatting
+   1. How big is each image?
+   2. How is the page laid out?
+   3. Implement it and experiment
+** DONE Decide on pagination of online version
+** TODO Figure out a cover image
+   - Commission one from Zaina or Jane?
+** DONE Decide how to represent non-flower-named poems
+   - They should be included since they mention plants, but should they
+     have images? should they somehow be compressed?
+** DONE How to reference poems?
+   - Include page numbers from my two versions
+   - Are there other versions?
+   
+* Images
+** DONE Find sources for all images
+** DONE Crop images to standard size
+   1. Aspect ratio: 1.414141 (210 / 148.5 mm)
+   2. Set bounding box relative to center point
+      (max scale, in whatever dimension)
+** DONE Choose color point in cropped image
+   1. Choose in original image
+** DONE Choose complementary text color
+   1. Or, maybe just invert to luminance?
+      (ie, if high, go low; if low, go high)
+** TODO Add color point for pine, fir, and wayfarer tree      
+
+* Text 
+** DONE Finalize format of text box
+** DONE Include hyperlinks
+** DONE Write intro
+** DONE Write explanatory text
+   1. Define botanical terms
+** TODO Make some visualizations
+** DONE Fix issues with links
+** TODO Fix issues with Jacobs ladder
+** TODO Make links more visible
+
