@@ -5,4 +5,4 @@ mentioned in Louise Glück's book The Wild Iris (please
 project is meant as a reference for the curious and -- like me -- botanically 
 ignorant reader of this wonderful book. 
 
-__Practical notes:__ There is a navigation bar at the top of each page. The definitions from the glossary are also given in the alt-text for the words in the "type" section of each page. The sources listed in the references are also given in the alt-text. 
+__Practical notes:__ There is a navigation bar at the top of each page. Hover over italicized words in "Type" section to see the definition from the glossary. Hover over the number(s) in the "References" section to see the reference.
