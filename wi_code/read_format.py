@@ -90,11 +90,11 @@ inner_html = """
 </head>
 
 <body class="{page_type}">
-<a href="./toc.html">table of contents</a>
+<a href="./index.html">table of contents</a>
 
 {formatted_markdown}
 
-<a href="./toc.html">table of contents</a>
+<a href="./index.html">table of contents</a>
 </body>
 
 """
@@ -327,63 +327,6 @@ def make_page(
     return flower_name, page_name, page, flower_col, sources
 
 
-def read_files(
-    folder,
-    file_template=".*\.info$",
-    picture_folder="formatted_pictures/{templ}/",
-    use_gloss=oi.glossary,
-):
-    """
-    this reads all the info files and formats them into a markdown
-    string for conversion to html or latex
-    """
-    files = os.listdir(folder)
-    page_dict = {}
-    sources = {}
-    for fl in files:
-        m = re.match(file_template, fl)
-        if m is not None:
-            name_str, _ = fl.split(".")
-            flower_name = format_flower_name(name_str)
-            parser = read_info(fl, folder)
-            detail, sources = format_detail(
-                parser["info"],
-                poem_key,
-                poem_name,
-                sources=sources,
-            )
-            page_txt = main_template.format(flower_name=flower_name, detail=detail)
-            page_html = mk2.markdown(page_txt)
-            page_html = link_glossary(page_html, use_gloss)
-
-            pic_file = parser["picture"].get("path")
-            orientation = parser["picture"].get("orientation")
-            if orientation is None:
-                orientation = "horizontal"
-            p_source_link = parser["picture"].get("source_url")
-            p_source_text = parser["picture"].get("source_text")
-
-            box_side = parser["picture"].get("box_side", "left")
-
-            flower_folder = picture_folder.format(templ=name_str)
-            flower_pic = os.path.join(flower_folder, pic_file)
-            col_file = open(os.path.join(flower_folder, "color.pkl"), "rb")
-            flower_col = pickle.load(col_file)
-
-            page = page_template.format(
-                flower_name=flower_name,
-                image_url=flower_pic,
-                flower_color=flower_col,
-                box_html=page_html,
-                orientation=orientation,
-                pic_source_link=p_source_link,
-                pic_source_text=p_source_text,
-                poem_name=poem_name,
-                box_side=box_side,
-            )
-            page_dict[name_str] = (flower_name, page, flower_col)
-    return page_dict, sources
-
 
 def link_glossary(html, term_dict, repl_templ=inner_gloss_link):
     replacements = []
@@ -401,25 +344,13 @@ def link_glossary(html, term_dict, repl_templ=inner_gloss_link):
             html = html.replace(repl_str, goofy)
             replacements.append((goofy, new_str))
     for r_s, n_s in replacements:
-        print(r_s, n_s.strip('\n'))
         html = html.replace(r_s, n_s.strip('\n'))
     return html
 
 
-""" 
-TO DO
------ 
-1. DONE -- Fix sources
-2. DONE -- Write short intro
-3. DONE -- Change out all vertical images
-4. DONE -- Move box to righthand side where appropriate
-5. Get rid of weird white artifact on page
-
-"""
-
-
 def make_html(
     folder,
+    output_folder=None,
     use_toc=oi.toc,
     use_gloss=oi.glossary,
     use_post_toc=oi.post_toc,
@@ -446,6 +377,9 @@ def make_html(
     pre_item_html_templ=inner_html,
     **kwargs
 ):
+    if output_folder is None:
+        output_folder = folder
+    print(output_folder)
     sources = {}
     toc_lines = []
     write_later = []
@@ -468,7 +402,7 @@ def make_html(
     n_pages = len(write_later)
     for i, page_info in enumerate(write_later):
         (curr_path, curr_pname, curr_fname, curr_page, flower_color) = page_info
-        toc_link = "toc.html"
+        toc_link = "index.html"
         if i == 0:
             next_path, next_pname, next_fname, next_page, _ = write_later[i + 1]
             nav_bar = beg_nav_bar_templ.format(
@@ -495,7 +429,7 @@ def make_html(
                 flower_color=flower_color,
             )
         curr_page_f = curr_page.format(nav_bar=nav_bar, poem_name=curr_pname)
-        with open(curr_path, "wt") as f:
+        with open(os.path.join(output_folder, curr_path), "wt") as f:
             f.write(curr_page_f)
 
     post_toc_lines = []
@@ -511,7 +445,7 @@ def make_html(
         full_ht = pre_item_html_templ.format(
             page_type="org_page", page_title=section_name, formatted_markdown=ht
         )
-        with open(link, "wt") as f:
+        with open(os.path.join(output_folder, link), "wt") as f:
             f.write(full_ht)
         pre_toc_lines.append(item)
     pre_items = "\n".join(pre_toc_lines)
@@ -528,7 +462,7 @@ def make_html(
         )
     )
     toc_full = toc_html_templ.format(page_type="org_page", formatted_markdown=toc_html)
-    with open(toc_fname, "wt") as f:
+    with open(os.path.join(output_folder, toc_fname), "wt") as f:
         f.write(toc_full)
 
     gloss_lines = []
@@ -539,7 +473,7 @@ def make_html(
     gloss_full = gloss_html_templ.format(
         page_type="org_page", page_title="Glossary", formatted_markdown=gloss_html
     )
-    with open(gloss_fname, "wt") as f:
+    with open(os.path.join(output_folder, gloss_fname), "wt") as f:
         f.write(gloss_full)
 
     source_lines = []
@@ -550,7 +484,7 @@ def make_html(
     source_full = source_html_templ.format(
         page_type="org_page", page_title="References", formatted_markdown=source_html
     )
-    with open(source_fname, "wt") as f:
+    with open(os.path.join(output_folder, source_fname), "wt") as f:
         f.write(source_full)
 
 

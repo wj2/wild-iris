@@ -25,7 +25,7 @@
 ** DONE Choose complementary text color
    1. Or, maybe just invert to luminance?
       (ie, if high, go low; if low, go high)
-** TODO Add color point for pine, fir, and wayfarer tree      
+** DONE Add color point for pine, fir, and wayfarer tree      
 
 * Text 
 ** DONE Finalize format of text box
@@ -37,4 +37,4 @@
 ** DONE Fix issues with links
 ** TODO Fix issues with Jacobs ladder
 ** TODO Make links more visible
-
+** TODO Get rid of weird white artifact
