@@ -48,16 +48,20 @@ def resave_images(folder, template='.*\.info$', image_folder='pictures',
                                      box_lb[0] + h_len, box_lb[1] + v_len))
             crop_img = crop_img.resize(resize_targ)
             img_arr = np.asarray(img)
+            print(fl, info)
             if info is not None:
                 pt = _convert_list(img_info.get('color_point'), typefunc=int)
             else:
                 pt = (0, 0)
+            print(pt)
             col = ','.join(str(num) for num in img_arr[pt[1], pt[0]][:3])
+            print(col)
             new_folder = os.path.join(out_folder, pic_folder)
             if not os.path.isdir(new_folder):
                 os.mkdir(new_folder)
             crop_img.save(os.path.join(new_folder, pic_file))
-            pickle.dump(col, open(os.path.join(new_folder, color_file), 'wb'))           
+            pickle.dump(col, open(os.path.join(new_folder, color_file), 'wb'))
+            print(new_folder)
 
 
 def check_images(folder, **kwargs):

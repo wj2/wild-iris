@@ -6,6 +6,7 @@ center = middle middle
 source_text = By Anneli Salo, CC BY-SA 3.0
 source_url = https://commons.wikimedia.org/w/index.php?curid=74706669
 box_side = right
+white_text = True
 
 [info]
 Blooming period = late Spring to early Summer

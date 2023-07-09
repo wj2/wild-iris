@@ -7,12 +7,16 @@
 ** DONE Decide on pagination of online version
 ** TODO Figure out a cover image
    - Commission one from Zaina or Jane?
+   - Use an edit or crop of the photos I took? 
 ** DONE Decide how to represent non-flower-named poems
    - They should be included since they mention plants, but should they
      have images? should they somehow be compressed?
 ** DONE How to reference poems?
    - Include page numbers from my two versions
    - Are there other versions?
+** DONE Make hitting TOC on a particular page go to that spot in TOC
+** TODO Spruce up the TOC
+   - Use the cover image? Use the color sequence?
    
 * Images
 ** DONE Find sources for all images
@@ -33,8 +37,11 @@
 ** DONE Write intro
 ** DONE Write explanatory text
    1. Define botanical terms
-** TODO Make some visualizations
 ** DONE Fix issues with links
-** TODO Fix issues with Jacobs ladder
-** TODO Make links more visible
+** TODO Make some visualizations
+** DONE Fix issues with Jacobs ladder
+** DONE Make links more visible
 ** TODO Get rid of weird white artifact
+** TODO Maybe emphasize poem quote more somehow
+   - Maybe add list of links to all other appearances?
+** DONE Change some text to be white

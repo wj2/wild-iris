@@ -5,6 +5,7 @@ crop_window = 0, 150
 center = middle middle
 source_text = By Fir0002, CC BY-SA 3.0
 source_url = https://commons.wikimedia.org/w/index.php?curid=128461
+white_text = True
 
 [info]
 Blooming period = Spring to Summer

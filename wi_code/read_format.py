@@ -44,12 +44,12 @@ page_template = """
 
 <body class="flower_page" style="background-color:rgb({flower_color})">
 <div id="{flower_name}" class="wi_{orientation}_page" 
- style="background-image: url({image_url});">
+ style="{text_color}background-image: url({image_url});">
 {{nav_bar}}
-<div class="flower_box" style="background-color:rgb({flower_color}, .75); {box_side}:0in;">
+<div class="flower_box" style="background-color:rgba({flower_color}, .75); {box_side}:0in;">
 {box_html}
 </div>
-<div class="picture_link" style="background-color:rgb({flower_color}, .75);">
+<div class="picture_link" style="background-color:rgba({flower_color}, .75);">
 <a href={pic_source_link}>
 {pic_source_text}
 </a>
@@ -69,7 +69,7 @@ detail_template = """
 """
 
 toc_main = """1. {poem_name}  """
-toc_sub = """  - [{flower_name}]({page_loc})  """
+toc_sub = """  - <a href="{page_loc}" name="{flower_ident}">{flower_name}</a>"""
 
 outer_html = """
 <head>
@@ -175,7 +175,10 @@ swap_list = (("-", " "), ("@", "'"))
 def format_flower_name(s, make_swaps=swap_list):
     for old, new in swap_list:
         s = s.replace(old, new)
-    return s.title()
+    s = s.title()
+    if s == "Jacob'S Ladder":
+        s = "Jacob's Ladder"
+    return s
 
 
 def _generate_format_source(source):
@@ -274,6 +277,7 @@ def make_page(
     poem_page,
     file_suffix=".info",
     picture_folder="formatted_pictures/{templ}/",
+    color_file="formatted_pictures/{templ}/color.pkl",
     use_gloss=oi.glossary,
     sources=None,
 ):
@@ -305,10 +309,15 @@ def make_page(
     p_source_text = parser["picture"].get("source_text")
 
     box_side = parser["picture"].get("box_side", "left")
+    white_text = parser["picture"].getboolean("white_text", False)
+    if white_text:
+        text_color = "color: white; "
+    else:
+        text_color = ""
 
     flower_folder = picture_folder.format(templ=flower)
     flower_pic = os.path.join(flower_folder, pic_file)
-    col_file = open(os.path.join(flower_folder, "color.pkl"), "rb")
+    col_file = open(color_file.format(templ=flower), "rb")
     flower_col = pickle.load(col_file)
 
     page = page_template.format(
@@ -321,11 +330,11 @@ def make_page(
         pic_source_text=p_source_text,
         poem_name=poem_name,
         box_side=box_side,
+        text_color=text_color,
     )
 
     page_name = poem_key + ".html"
     return flower_name, page_name, page, flower_col, sources
-
 
 
 def link_glossary(html, term_dict, repl_templ=inner_gloss_link):
@@ -379,7 +388,9 @@ def make_html(
 ):
     if output_folder is None:
         output_folder = folder
-    print(output_folder)
+    new_color_file = os.path.join(
+        output_folder, "formatted_pictures/{templ}/color.pkl"
+    )
     sources = {}
     toc_lines = []
     write_later = []
@@ -392,17 +403,21 @@ def make_html(
                 poem_name,
                 poem_page,
                 sources=sources,
+                color_file=new_color_file,
                 **kwargs
             )
             flower_name, page_name, page, flower_color, sources = out
 
             page_loc = page_name.format(pg_num=poem_page)
             write_later.append((page_loc, poem_name, flower_name, page, flower_color))
-            toc_lines.append(toc_sub.format(flower_name=flower_name, page_loc=page_loc))
+            flower_ident = page_name.split(".")[0]
+            toc_lines.append(toc_sub.format(flower_name=flower_name, page_loc=page_loc,
+                                            flower_ident=flower_ident))
     n_pages = len(write_later)
     for i, page_info in enumerate(write_later):
         (curr_path, curr_pname, curr_fname, curr_page, flower_color) = page_info
-        toc_link = "index.html"
+        flower_ident = curr_path.split(".")[0]
+        toc_link = "index.html#{flower_ident}".format(flower_ident=flower_ident)
         if i == 0:
             next_path, next_pname, next_fname, next_page, _ = write_later[i + 1]
             nav_bar = beg_nav_bar_templ.format(

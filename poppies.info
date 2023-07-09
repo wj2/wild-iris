@@ -6,6 +6,7 @@ center = middle left
 source_text = Pixabay License
 source_url = https://pixabay.com/photos/poppy-blossom-bloom-flower-nature-2391026/
 box_side = right
+white_text = True
 
 [info]
 Blooming period = late Spring to early Summer

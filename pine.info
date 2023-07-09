@@ -4,6 +4,7 @@ color_point = 2279, 790
 crop_window = 0, 0
 orientation = horizontal
 center = middle middle
+white_text = True
 source_text = Famartin, CC BY-SA
 source_url = https://commons.wikimedia.org/wiki/File:2013-05-12_11_23_41_Pitch_Pine_trees_and_view_west_from_the_Hoeferlin_Trail_in_Ramapo_Mountain_State_Forest_in_New_Jersey.jpg
 
