@@ -1,4 +1,11 @@
+/* MAIN PAGES */
+@page {
+    /* REPLACE HERE */
+    size: 11in 8.5in;
+    margin: -.3cm;
+}
 
+/* COMMON PROPERTIES */
 /* Title */
 h1 {
     font-style: italic;
@@ -12,6 +19,10 @@ a {
     font-weight: bold;
     color: inherit; 
     display: inline-block;
+}
+
+hr {
+    color: inherit;
 }
 
 body.flower_page {

@@ -17,6 +17,7 @@ def create_parser():
                         default=".")
 
     parser.add_argument("--resave_images", default=False, action="store_true")
+    parser.add_argument("--make_pdf", default=False, action="store_true")
     return parser
 
 
@@ -29,10 +30,17 @@ if __name__ == "__main__":
     o_css = os.path.join(args.information_folder, "css")
     n_css = os.path.join(args.output_folder, "css")
     shutil.copytree(o_css, n_css, dirs_exist_ok=True)
-        
+
     formatted_pic_folder = os.path.join(args.output_folder, "formatted_pictures")
     images_exist = os.path.isdir(formatted_pic_folder)
     if args.resave_images or not images_exist:
         img.resave_images(args.information_folder, out_folder=formatted_pic_folder)
 
-    rf.make_html(args.information_folder, output_folder=args.output_folder)
+    page_paths = rf.make_tex(
+        args.information_folder, output_folder=args.output_folder
+    )
+
+    if args.make_pdf:
+        main_css = os.path.join(n_css, "main.css")
+        prepost_css = os.path.join(n_css, "prepost_main.css")
+        rf.make_all_pdfs(page_paths, main_css, prepost_css, args.output_folder)

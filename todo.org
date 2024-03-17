@@ -42,6 +42,6 @@
 ** DONE Fix issues with Jacobs ladder
 ** DONE Make links more visible
 ** TODO Get rid of weird white artifact
-** TODO Maybe emphasize poem quote more somehow
-   - Maybe add list of links to all other appearances?
+** DONE Maybe emphasize poem quote more somehow
+** TODO On each page, add list of links to all other appearances of that plant
 ** DONE Change some text to be white
