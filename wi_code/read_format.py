@@ -9,230 +9,9 @@ import pickle
 import PyPDF4 as pdf
 import wi_code.org_info as oi
 import weasyprint as wp
+import urllib as url
 
-
-nav_bar_template = """
-<nav class="nav_bar">
-<ul id="navlist">
-<li class="navitem"><a href="{prev_link}" style="background-color:rgb({flower_color});">previous</a></li>
-<li class="navitem"><a href="{toc_link}" style="background-color:rgb({flower_color});">table of contents</a></li>
-<li class="navitem"><a href="{next_link}" style="background-color:rgb({flower_color});">next</a></li>
-</ul>
-</nav>
-"""
-
-beg_nav_bar_template = """
-<nav class="nav_bar">
-<ul id="navlist">
-<li class="navitem"><a href="{curr_link}" style="background-color:rgb({flower_color});">beginning</a></li>
-<li class="navitem"><a href="{toc_link}" style="background-color:rgb({flower_color});">table of contents</a></li>
-<li class="navitem"><a href="{next_link}" style="background-color:rgb({flower_color});">next</a></li>
-</ul>
-</nav>
-"""
-
-end_nav_bar_template = """
-<nav class="nav_bar">
-<ul id="navlist">
-<li class="navitem"><a href="{prev_link}" style="background-color:rgb({flower_color});">previous</a></li>
-<li class="navitem"><a href="{toc_link}" style="background-color:rgb({flower_color});">table of contents</a></li>
-<li class="navitem"><a href="{curr_link}" style="background-color:rgb({flower_color});">ending</a></li>
-</ul>
-</nav>
-"""
-
-page_template = """
-<head>
-<link rel="stylesheet" href="./css/main.css"/>
-<title>{poem_name}: {flower_name}</title>
-</head>
-
-<body class="flower_page" style="background-color:rgb({flower_color})">
-<div id="{flower_name}" class="wi_{orientation}_page"
- style="{text_color}background-image: url({image_url});">
-{{nav_bar}}
-<div class="flower_box" style="background-color:rgba({flower_color}, .75); {box_side}:0in;">
-{box_html}
-</div>
-<div class="picture_link" style="background-color:rgba({flower_color}, .75);">
-<a href={pic_source_link}>
-{pic_source_text}
-</a>
-</div>
-</div>
-</body>
-"""
-
-main_template = """
-# {flower_name}
-
-{detail}
-"""
-
-detail_template = """
-**{title}**: {info}
-"""
-
-toc_main = """1. {poem_name}  """
-toc_sub = """  - <a href="{page_loc}" name="{flower_ident}">{flower_name}</a>"""
-toc_main_tex = """\item {poem_name}"""
-toc_sub_tex = """\item \hyperref[{page_loc}]{{flower_name}}"""
-
-outer_html = """
-<head>
-<link rel="stylesheet" href="./css/prepost_main.css"/>
-<title>Table of contents</title>
-</head>
-
-<body class="{page_type}">
-{formatted_markdown}
-</body>
-
-"""
-outer_tex = """
-\subsection{{{page_title}}} \label{{{page_ref}}}
-
-{formatted_markdown}
-"""
-
-inner_html = """
-<head>
-<link rel="stylesheet" href="./css/prepost_main.css"/>
-<title>{page_title}</title>
-</head>
-
-<body class="{page_type}">
-<a href="./index.html">table of contents</a>
-
-{formatted_markdown}
-
-<a href="./index.html">table of contents</a>
-</body>
-
-"""
-inner_tex = """
-\subsection{{{page_title}}} \label{{{page_ref}}}
-
-{formatted_markdown}
-"""
-
-
-inner_gloss_link = """
-<a href="./glossary.html#{term}" title="{definition}" class="subtle_link">{disp_term}</a>
-"""
-
-post_item_templ = """
-1. <a href="{item_path}">{item_name}</a>
-"""
-post_item_templ_tex = """
-\item \hyperref[{item_path}]{{{item_name}}}
-"""
-
-toc_template = """
-# A botanical companion to The Wild Iris
-{summary_statement}
-
-## Table of contents
-
-{pre_items}
-
-### The Wild Iris
-{items}
-
-### Appendix
-{post_items}
-"""
-toc_template_tex = """
-{summary_statement}
-
-\clearpage 
-
-\toc
-\subsection{{Table of contents}}
-
-{pre_items}
-
-\subsubsection{{The Wild Iris}}
-{items}
-
-\subsubsection{{Appendix}}
-{post_items}
-"""
-
-glossary_template = """
-# Glossary
-
-{items}
-
-"""
-glossary_template_tex = """
-\subsection{{Glossary}} \label{{glossary}}
-
-{items}
-"""
-
-glossary_line = """
-**{term} <a name="{term}"></a>** - {definition}
-"""
-glossary_tex_line = """
-\\textbf{{term}} - {definition}
-"""
-
-sources_template = """
-# References
-
-<ol>
-{items}
-</ol>
-
-"""
-sources_tex_template = """
-\subsection{{References}}
-
-\\begin{{itemize}}
-{items}
-\end{{itemize}}
-"""
-
-itemize_template = """
-\\begin{{itemize}}
-{items}
-\end{{itemize}}
-"""
-enumerate_template = """
-\\begin{{enumerate}}
-{items}
-\end{{enumerate}}
-"""
-
-source_line = """
-<li>{fs} <a name="{ind}"></a></li>
-"""
-source_tex_line = """
-\item {fs} \label{ind}
-"""
-
-img_pdf_options_vert = {
-    "page-height": "8.5in",
-    "page-width": "5.5in",
-}
-
-img_pdf_options_horiz = {
-    "page-height": "8.5in",
-    "page-width": "11in",
-    "page-orientation": "Landscape",
-}
-
-img_pdf_options = {
-    "margin-top": "0in",
-    "margin-right": "0in",
-    "margin-bottom": "0in",
-    "margin-left": "0in",
-    "encoding": "UTF-8",
-    "custom-header": [("Accept-Encoding", "gzip")],
-    "no-outline": None,
-    "enable-local-file-access": None,
-}
+from wi_code.text_snippets import *
 
 
 swap_list = (("-", " "), ("@", "'"))
@@ -260,7 +39,7 @@ def _generate_format_source(source):
     return fs
 
 
-def format_sources(txt, sources):
+def format_sources(txt, sources, make_links=True):
     new_sources = txt.split(",")
     links = []
     for ns in new_sources:
@@ -274,11 +53,14 @@ def format_sources(txt, sources):
         else:
             ind, fs = out
         vis_txt = "[{}]".format(ind)
-        link = '<a title="{fs}" href="./references.html#{ind}">{vt}</a>'.format(
-            ind=ind,
-            vt=vis_txt,
-            fs=fs,
-        )
+        if make_links:
+            link = '<a title="{fs}" href="./references.html#{ind}">{vt}</a>'.format(
+                ind=ind,
+                vt=vis_txt,
+                fs=fs,
+            )
+        else:
+            link = vis_txt
         links.append(link)
     sources = ",".join(links)
     return sources
@@ -292,13 +74,16 @@ ordered_fields = (
     "Sun requirement",
     "Soil requirement",
 )
-last_fields = ("Notes", "Sources",)
+last_fields = (
+    "Notes",
+    "Sources",
+)
 
 
 def _make_additional_fields(fields, poem_key):
-    flower_name = poem_key.split('_')[0]
+    flower_name = poem_key.split("_")[0]
     new_fields = tuple(
-        f for f in fields if re.match(flower_name + '_[0-9]+', f) is None
+        f for f in fields if re.match(flower_name + "_[0-9]+", f) is None
     )
     return new_fields
 
@@ -312,27 +97,29 @@ def format_detail(
     last_fields=last_fields,
     sources=None,
     glossary=None,
+    make_links=True,
 ):
     if sources is None:
         sources = c.OrderedDict()
     ordered_lower = list(of.lower() for of in ordered_fields + last_fields)
     additional_fields = set(info.keys()).difference(ordered_lower)
     additional_fields = _make_additional_fields(additional_fields, poem_key)
-    field_order = ((poem_key,) + ordered_fields + tuple(additional_fields) +
-                   tuple(last_fields))
+    field_order = (
+        (poem_key,) + ordered_fields + tuple(additional_fields) + tuple(last_fields)
+    )
     out_str = ""
     for field in field_order:
         txt = info.get(field)
         if txt is not None:
             add_break = False
             if field == "Sources":
-                txt = format_sources(txt, sources)
+                txt = format_sources(txt, sources, make_links=make_links)
             elif field == poem_key:
-                pg_num = field.split('_')[1]
-                field = '_{}_ (page {})'.format(poem_name, pg_num)
+                pg_num = field.split("_")[1]
+                field = "_{}_ (page {})".format(poem_name, pg_num)
                 add_break = True
             elif field == "Type" and glossary is not None:
-                txt = link_glossary(txt, glossary)
+                txt = link_glossary(txt, glossary, make_links=make_links)
             add_str = detail_template.format(title=field, info=txt)
             out_str = out_str + add_str + "\n"
             if add_break:
@@ -350,13 +137,14 @@ def make_page(
     color_file="formatted_pictures/{templ}/color.pkl",
     use_gloss=oi.glossary,
     sources=None,
+    make_links=True,
 ):
     """
     this reads a particular set of files and formats them into a markdown
     string for conversion to html or latex
     """
     main_info = os.path.join(folder, flower) + file_suffix
-    poem_key = flower + '_{}'.format(poem_page)
+    poem_key = flower + "_{}".format(poem_page)
     add_info = os.path.join(folder, poem_key) + file_suffix
 
     flower_name = format_flower_name(flower)
@@ -367,6 +155,7 @@ def make_page(
         poem_name,
         sources=sources,
         glossary=use_gloss,
+        make_links=make_links,
     )
     page_txt = main_template.format(flower_name=flower_name, detail=detail)
     page_html = mk2.markdown(page_txt)
@@ -407,24 +196,99 @@ def make_page(
     return flower_name, page_name, page, flower_col, sources
 
 
-def link_glossary(html, term_dict, repl_templ=inner_gloss_link):
+def link_glossary(
+    html,
+    term_dict,
+    repl_templ=inner_gloss_link,
+    make_links=True,
+    repl_no_link_templ=inner_gloss_link_tex,
+):
     replacements = []
     for term, definition in term_dict.items():
         pattern = "(semi-)?{term}[,s)]?".format(term=term)
         term_re = re.compile(pattern, re.I)
         m = re.search(term_re, html)
-        definition = "{}: {}".format(term, definition.replace('\n', ''))
+        definition = "{}: {}".format(term, definition.replace("\n", ""))
         if m is not None:
             repl_str = m.group()
-            new_str = repl_templ.format(
-                term=term, disp_term=repl_str, definition=definition
-            )
+            if make_links:
+                new_str = repl_templ.format(
+                    term=term, disp_term=repl_str, definition=definition
+                )
+            else:
+                new_str = repl_no_link_templ.format(disp_term=repl_str)
             goofy = str(hash(repl_str))
             html = html.replace(repl_str, goofy)
             replacements.append((goofy, new_str))
     for r_s, n_s in replacements:
-        html = html.replace(r_s, n_s.strip('\n'))
+        html = html.replace(r_s, n_s.strip("\n"))
     return html
+
+
+def md_to_tex(text, out="temp.tex", orig="temp_orig.md"):
+    with tempfile.TemporaryDirectory() as tf:
+        file = os.path.join(tf, orig)
+        with open(file, "w") as f:
+            f.write(text)
+
+        new_path = os.path.join(tf, out)
+        arg = [
+            "pandoc",
+            "--read",
+            "markdown",
+            "--write",
+            "latex",
+            "--output",
+            new_path,
+            file,
+        ]
+        subprocess.run(arg)
+        new_text = open(new_path, "r").read()
+    return new_text
+
+
+def _format_tex_link(s):
+    s = s.strip()
+    elements = list(filter(lambda x: len(x) > 0, s.split(" ")))
+    if len(elements) == 1:
+        info = url.parse.urlparse(s.strip())
+        if info.netloc == "en.wikipedia.org":
+            plant = info.path.split("/")[-1]
+            face = "Wikipedia: {}".format(plant.replace("_", " "))
+        elif info.netloc == "gobotany.nativeplanttrust.org":
+            face = "Native Plant Trust"
+        elif info.netloc == "www.chicagobotanic.org":
+            face = "Chicago Botanical Garden"
+        elif info.path[-3:] == "pdf":
+            face = info.path.split("/")[-1].split(".")[0]
+            face = face.replace("-", " ")
+        else:
+            face = s
+        entry = "\href{{{link}}}{{{face}}}".format(link=s, face=face)
+    else:
+        entry = s
+    return entry
+
+
+def md_to_tex_file(
+    file,
+    out="temp.tex",
+):
+    with tempfile.TemporaryDirectory() as tf:
+        new_path = os.path.join(tf, out)
+        arg = [
+            "pandoc",
+            "--read",
+            "markdown",
+            "--write",
+            "latex",
+            "--output",
+            new_path,
+            file,
+        ]
+        subprocess.run(arg)
+        new_text = open(new_path, "r").read()
+    return new_text
 
 
 def make_tex(
@@ -449,20 +313,21 @@ def make_tex(
     post_item_templ=post_item_templ_tex,
     pre_item_templ=post_item_templ_tex,
     pre_item_html_templ=inner_tex,
+    main_css="css/main.css",
+    resave_pdfs=False,
+    include_template=pdf_include,
+    latex_template=full_tex_template,
     **kwargs
-        ):
+):
     if output_folder is None:
         output_folder = folder
-    new_color_file = os.path.join(
-        output_folder, "formatted_pictures/{templ}/color.pkl"
-    )
+    new_color_file = os.path.join(output_folder, "formatted_pictures/{templ}/color.pkl")
     sources = {}
-    toc_lines = []
-    write_later = []
-    page_paths = {'pre': [], 'main': [], 'post': []}
+    include_list = []
     for (poem_name, poem_page), flowers in use_toc.items():
-        toc_lines.append(toc_main.format(poem_name=poem_name))
-        flower_entries = []
+        poem_ident = "{}_{}".format(poem_name, poem_page)
+        include_list.append(poem_toc.format(poem_name=poem_name, poem_ident=poem_ident))
+
         for flower in flowers:
             out = make_page(
                 folder,
@@ -471,94 +336,77 @@ def make_tex(
                 poem_page,
                 sources=sources,
                 color_file=new_color_file,
+                make_links=False,
                 **kwargs
             )
             flower_name, page_name, page, flower_color, sources = out
 
             page_loc = page_name.format(pg_num=poem_page)
-            write_later.append((page_loc, poem_name, flower_name, page, flower_color))
             flower_ident = page_name.split(".")[0]
-            toc_entry = toc_sub.format(flower_name=flower_name, page_loc=page_loc,
-                                       flower_ident=flower_ident)
-            flower_entries.append(toc_entry)
-        toc_group = itemize_template.format(
-               items="\n".join(flower_entries)
-        )
-        toc_lines.append(toc_group)
-    main_items = "\n".join(toc_lines)
-    main_items = enumerate_template.format(
-        items=main_items
-    )
-    
-    for i, page_info in enumerate(write_later):
-        (curr_path, curr_pname, curr_fname, curr_page, flower_color) = page_info
-        flower_ident = curr_path.split(".")[0]
-        nav_bar = ""
-        curr_page_f = curr_page.format(nav_bar=nav_bar, poem_name=curr_pname)
-        fp = os.path.join(output_folder, curr_path)
-        with open(fp, "wt") as f:
-            f.write(curr_page_f)
-        page_paths['main'].append(fp)
+
+            nav_bar = ""
+            curr_page_f = page.format(nav_bar=nav_bar, poem_name=poem_name)
+            fp = os.path.join(output_folder, page_loc)
+            with open(fp, "wt") as f:
+                f.write(curr_page_f)
+            p_html = wp.HTML(filename=fp, url_fetcher=_url_fetcher)
+            out_path = fp.replace("html", "pdf")
+            if not os.path.isfile(out_path) or resave_pdfs:
+                p_html.write_pdf(target=out_path, stylesheets=(main_css,))
+
+            inc = pdf_include.format(
+                flower_name=flower_name, p=out_path, ref=flower_ident
+            )
+            include_list.append(inc)
+
+    plant_page_full = "\n".join(include_list)
 
     post_toc_lines = []
     for section_name, link in use_post_toc.items():
         item = post_item_templ.format(item_name=section_name, item_path=link)
         post_toc_lines.append(item)
     post_items = "\n".join(post_toc_lines)
-    post_items = enumerate_template.format(
-        items=post_items
-    )
+    post_items = enumerate_template.format(items=post_items)
 
     pre_toc_lines = []
     for section_name, link in use_pre_toc.items():
         item = pre_item_templ.format(item_name=section_name, item_path=link)
-        ht = mk2.markdown(open(link.replace("html", "md"), "r").read())
-        full_ht = pre_item_html_templ.format(
-            page_title=section_name, formatted_markdown=ht, page_ref=link,
-        )
-        fp = os.path.join(output_folder, link)
-        with open(fp, "wt") as f:
-            f.write(full_ht)
-        page_paths['pre'].append(fp)
-        pre_toc_lines.append(item)
-    pre_items = "\n".join(pre_toc_lines)
-    pre_items = enumerate_template.format(
-        items=pre_items
-    )
+        full_ht = md_to_tex_file(link.replace("html", "md"))
+        pre_toc_lines.append(full_ht)
+    pre_full = "\n".join(pre_toc_lines)
 
-    summary_statement = open(summary_statement_file, "r").read()
-    toc_html = mk2.markdown(
-        toc_template.format(
-            pre_items=pre_items,
-            items=main_items,
-            post_items=post_items,
-            summary_statement=summary_statement,
-        )
-    )
-    toc_full = toc_tex_templ.format(
-        page_title="Table of Contents", formatted_markdown=toc_html, page_ref="toc",
+    summary_statement = md_to_tex_file(summary_statement_file)
+    pre_full = "{}\n \clearpage {}".format(summary_statement, pre_full)
+    toc_full = toc_template.format(
+        summary_statement="",
     )
 
     gloss_lines = []
     for term, definition in use_gloss.items():
         gloss_lines.append(gloss_line_templ.format(term=term, definition=definition))
     gloss_mkd = gloss_mkd_templ.format(items="\n".join(gloss_lines))
-    gloss_html = mk2.markdown(gloss_mkd)
-    gloss_full = gloss_tex_templ.format(
-        page_title="Glossary", page_ref="glossary", formatted_markdown=gloss_html
-    )
+    gloss_full = md_to_tex(gloss_mkd)
 
     source_lines = []
     for _, (ind, fs) in sources.items():
-        source_lines.append(source_line_templ.format(fs=fs, ind=ind))
+        fs_use = _format_tex_link(fs)
+        line = source_line_templ.format(fs=fs_use, ind=ind)
+        line = line.replace("_", "\_")
+        source_lines.append(line)
     source_mkd = source_mkd_templ.format(items="\n".join(source_lines))
-    source_html = mk2.markdown(source_mkd)
-    source_full = source_html_templ.format(
-        page_title="References", page_ref="references", formatted_markdown=source_html
-    )
-    pages = [toc_full, gloss_full, source_full]
-    full_tex = "\n \clearpage \n".join(pages)
+    source_full = md_to_tex(source_mkd)
+    pages = [
+        pre_full,
+        toc_full,
+        "\section{A botanical companion to \emph{The~Wild~Iris}}",
+        plant_page_full,
+        "\section{Appendix}",
+        gloss_full,
+        source_full,
+    ]
+    combined_tex = "\n \clearpage \n".join(pages)
     fp = os.path.join(output_folder, tex_fname)
+    full_tex = latex_template.format(everything=combined_tex)
     with open(fp, "wt") as f:
         f.write(full_tex)
 
@@ -585,6 +433,7 @@ def make_html(
     end_nav_bar_templ=end_nav_bar_template,
     beg_nav_bar_templ=beg_nav_bar_template,
     summary_statement_file="summary_statement.md",
+    practical_note_file="practical_note.md",
     source_fname="references.html",
     source_line_templ=source_line,
     source_mkd_templ=sources_template,
@@ -596,13 +445,11 @@ def make_html(
 ):
     if output_folder is None:
         output_folder = folder
-    new_color_file = os.path.join(
-        output_folder, "formatted_pictures/{templ}/color.pkl"
-    )
+    new_color_file = os.path.join(output_folder, "formatted_pictures/{templ}/color.pkl")
     sources = {}
     toc_lines = []
     write_later = []
-    page_paths = {'pre': [], 'main': [], 'post': []}
+    page_paths = {"pre": [], "main": [], "post": []}
     for (poem_name, poem_page), flowers in use_toc.items():
         toc_lines.append(toc_main.format(poem_name=poem_name))
         for flower in flowers:
@@ -620,8 +467,13 @@ def make_html(
             page_loc = page_name.format(pg_num=poem_page)
             write_later.append((page_loc, poem_name, flower_name, page, flower_color))
             flower_ident = page_name.split(".")[0]
-            toc_lines.append(toc_sub.format(flower_name=flower_name, page_loc=page_loc,
-                                            flower_ident=flower_ident))
+            toc_lines.append(
+                toc_sub.format(
+                    flower_name=flower_name,
+                    page_loc=page_loc,
+                    flower_ident=flower_ident,
+                )
+            )
     n_pages = len(write_later)
     for i, page_info in enumerate(write_later):
         (curr_path, curr_pname, curr_fname, curr_page, flower_color) = page_info
@@ -656,7 +508,7 @@ def make_html(
         fp = os.path.join(output_folder, curr_path)
         with open(fp, "wt") as f:
             f.write(curr_page_f)
-        page_paths['main'].append(fp)
+        page_paths["main"].append(fp)
 
     post_toc_lines = []
     for section_name, link in use_post_toc.items():
@@ -674,13 +526,15 @@ def make_html(
         fp = os.path.join(output_folder, link)
         with open(fp, "wt") as f:
             f.write(full_ht)
-        page_paths['pre'].append(fp)
+        page_paths["pre"].append(fp)
         pre_toc_lines.append(item)
     pre_items = "\n".join(pre_toc_lines)
 
     main_items = "\n".join(toc_lines)
 
     summary_statement = open(summary_statement_file, "r").read()
+    practical_note = open(practical_note_file, "r").read()
+    summary_statement = "\n".join((summary_statement, practical_note))
     toc_html = mk2.markdown(
         toc_template.format(
             pre_items=pre_items,
@@ -693,7 +547,7 @@ def make_html(
     fp = os.path.join(output_folder, toc_fname)
     with open(fp, "wt") as f:
         f.write(toc_full)
-    page_paths['pre'].insert(0, fp)
+    page_paths["pre"].insert(0, fp)
 
     gloss_lines = []
     for term, definition in use_gloss.items():
@@ -706,7 +560,7 @@ def make_html(
     fp = os.path.join(output_folder, gloss_fname)
     with open(fp, "wt") as f:
         f.write(gloss_full)
-    page_paths['post'].append(fp)
+    page_paths["post"].append(fp)
 
     source_lines = []
     for _, (ind, fs) in sources.items():
@@ -719,7 +573,7 @@ def make_html(
     fp = os.path.join(output_folder, source_fname)
     with open(fp, "wt") as f:
         f.write(source_full)
-    page_paths['post'].append(fp)
+    page_paths["post"].append(fp)
     return page_paths
 
 
@@ -730,14 +584,14 @@ def read_info(*fls, folder=""):
 
 
 def get_num_pages(pdf_file):
-    with open(pdf_file, 'rb') as f:
+    with open(pdf_file, "rb") as f:
         r = pdf.PdfFileReader(f)
         n_pages = r.numPages
     return n_pages
 
 
 def make_temp_css(css, folder, page_num, targ_string="/* REPLACE HERE */"):
-    with open(css, 'r') as cf:
+    with open(css, "r") as cf:
         txt = cf.read()
     repl_string = """
     counter-reset: page {pn};
@@ -750,7 +604,7 @@ def make_temp_css(css, folder, page_num, targ_string="/* REPLACE HERE */"):
     repl_string = repl_string.format(pn=page_num)
     new_css = txt.replace(targ_string, repl_string)
     new_css_f = os.path.join(folder, "temp.css")
-    with open(new_css_f, 'w') as ncf:
+    with open(new_css_f, "w") as ncf:
         ncf.write(new_css)
     return new_css_f
 
@@ -759,7 +613,7 @@ def _url_fetcher(url, *args, **kwargs):
     print(url)
     url = url.strip("file:")
     print(url)
-    f = open(url, 'rb').read()
+    f = open(url, "rb").read()
     print(url)
     out = {"string": f}
     return out
@@ -800,41 +654,51 @@ def make_tex_groups(html_pages, tf, css):
 
 
 def make_tex_and_pdf(
-        trunk, pre_tex, pages, post_tex, template="wi_code/latex_template.tex",
+    trunk,
+    pre_tex,
+    pages,
+    post_tex,
+    template="wi_code/latex_template.tex",
 ):
     template_tex = open(template, "r").read()
 
     include_pages = list("\includepdf{p}".format(p=page) for page in pages)
     include_pages = "\n".join(include_pages)
     fl = template_tex.format(
-        pre_pages=pre_tex, include_pages=include_pages, end_pages=post_tex,
+        pre_pages=pre_tex,
+        include_pages=include_pages,
+        end_pages=post_tex,
     )
-    
+
     tex_path = trunk + ".tex"
     open(tex_path, "w").write(fl)
     subprocess.run(["pdflatex", tex_path])
 
 
 def make_all_pdfs(
-        page_paths,
-        main_css,
-        prepost_css,
-        out_folder,
-        filename="a_botanical_companion",
-        pages_folder=None,
-        tex_template="wi_code/latex_template.tex",
+    page_paths,
+    main_css,
+    prepost_css,
+    out_folder,
+    filename="a_botanical_companion",
+    pages_folder=None,
+    tex_template="wi_code/latex_template.tex",
 ):
     with tempfile.TemporaryDirectory() as tf:
         if pages_folder is not None:
             tf = pages_folder
         pre_tex_format = make_tex_groups(page_paths["pre"], tf, prepost_css)
-        
+
         pages, page_nums = make_pdf_groups(
-            tf, page_paths["main"], main_css, 
+            tf,
+            page_paths["main"],
+            main_css,
         )
 
         post_tex_format = make_tex_groups(
-            page_paths["post"], tf, prepost_css,
+            page_paths["post"],
+            tf,
+            prepost_css,
         )
 
         trunk = os.path.join(out_folder, filename)

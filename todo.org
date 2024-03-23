@@ -17,6 +17,11 @@
 ** DONE Make hitting TOC on a particular page go to that spot in TOC
 ** TODO Spruce up the TOC
    - Use the cover image? Use the color sequence?
+** TODO Clean up pdf version
+- exclude "practical note"
+- fix links in sources
+- fix internal links to not look so weird
+- include cover
    
 * Images
 ** DONE Find sources for all images
@@ -43,5 +48,5 @@
 ** DONE Make links more visible
 ** TODO Get rid of weird white artifact
 ** DONE Maybe emphasize poem quote more somehow
-** TODO On each page, add list of links to all other appearances of that plant
 ** DONE Change some text to be white
+** TODO On each page, add list of links to all other appearances of that plant
