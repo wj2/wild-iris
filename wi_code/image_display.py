@@ -29,6 +29,7 @@ def get_images(
 def resave_images(
     folder,
     template=".*\.info$",
+    sub_folder="plant_info",
     image_folder="pictures",
     info_key="picture",
     out_folder="formatted_pictures",
@@ -36,11 +37,12 @@ def resave_images(
 ):
     if not os.path.isdir(out_folder):
         os.mkdir(out_folder)
+    folder = os.path.join(folder, sub_folder)
     fls = os.listdir(folder)
     for fl in fls:
         m = re.match(template, fl)
         if m is not None:
-            info = rf.read_info(fl, folder)
+            info = rf.read_info(fl, folder=folder)
             img_info = info[info_key]
             pic_file = img_info.get("path")
             orientation = img_info.get("orientation")

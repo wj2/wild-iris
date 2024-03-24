@@ -2,8 +2,8 @@
 import collections as c
 
 pre_toc = c.OrderedDict()
-pre_toc['Introduction'] = 'introduction.html'
-pre_toc['License and other matters'] = 'license.html'
+pre_toc['Introduction'] = 'text/introduction.html'
+pre_toc['License and other matters'] = 'text/license.html'
 
 toc = c.OrderedDict()
 toc[('The Wild Iris', 1)] = ('iris', 'pine')

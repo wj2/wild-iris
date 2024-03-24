@@ -1,0 +1,22 @@
+[picture]
+path = gold-band.jpg
+color_point = 1115, 453
+crop_window = 0, 0
+center = middle middle
+orientation = horizontal
+source_text = Conservation Garden Park
+source_url = https://conservationgardenpark.org/plants/1025/gold-band-lily
+
+[info]
+Blooming period = late Summer to Fall
+Type = Herbaceous perennial bulb
+Family = Liliaceae
+Other names = Toad lily. 
+Notes = The toad lily is a different family from the lily, but has
+      closer-to-golden blooms. 
+Sun requirement = Partial shade.
+Soil requirement = Rich, moist soil.  
+Sources = encyclopedia,
+gold-lily_56 = "stands of late lilies&mdash;optimism / of the great stalks&mdash;imperial gold and silver"
+gold-lily_60 = "blossom / of the lily, immense, / gold-veined&mdash;"
+gold-lily_62 = "As I perceive / I am dying now and know / I will not speak again"

@@ -143,9 +143,9 @@ def make_page(
     this reads a particular set of files and formats them into a markdown
     string for conversion to html or latex
     """
-    main_info = os.path.join(folder, flower) + file_suffix
+    main_info = flower + file_suffix
     poem_key = flower + "_{}".format(poem_page)
-    add_info = os.path.join(folder, poem_key) + file_suffix
+    add_info = poem_key + file_suffix
 
     flower_name = format_flower_name(flower)
     parser = read_info(main_info, add_info, folder=folder)
@@ -295,6 +295,7 @@ def make_tex(
     folder,
     output_folder=None,
     use_toc=oi.toc,
+    info_folder="plant_info",
     use_gloss=oi.glossary,
     use_post_toc=oi.post_toc,
     use_pre_toc=oi.pre_toc,
@@ -306,8 +307,8 @@ def make_tex(
     gloss_line_templ=glossary_line,
     gloss_mkd_templ=glossary_template_tex,
     gloss_tex_templ=inner_tex,
-    summary_statement_file="summary_statement.md",
-    version_statement_file="web_version.md",
+    summary_statement_file="text/summary_statement.md",
+    version_statement_file="text/web_version.md",
     source_line_templ=source_tex_line,
     source_mkd_templ=sources_tex_template,
     source_html_templ=inner_tex,
@@ -325,13 +326,14 @@ def make_tex(
     new_color_file = os.path.join(output_folder, "formatted_pictures/{templ}/color.pkl")
     sources = {}
     include_list = []
+    info_folder = os.path.join(folder, info_folder)
     for (poem_name, poem_page), flowers in use_toc.items():
         poem_ident = "{}_{}".format(poem_name, poem_page)
         include_list.append(poem_toc.format(poem_name=poem_name, poem_ident=poem_ident))
 
         for flower in flowers:
             out = make_page(
-                folder,
+                info_folder,
                 flower,
                 poem_name,
                 poem_page,
@@ -423,6 +425,7 @@ def make_html(
     use_gloss=oi.glossary,
     use_post_toc=oi.post_toc,
     use_pre_toc=oi.pre_toc,
+    info_folder="plant_info",
     toc_template=toc_template,
     toc_main=toc_main,
     toc_sub=toc_sub,
@@ -435,9 +438,9 @@ def make_html(
     nav_bar_templ=nav_bar_template,
     end_nav_bar_templ=end_nav_bar_template,
     beg_nav_bar_templ=beg_nav_bar_template,
-    summary_statement_file="summary_statement.md",
-    version_statement_file="pdf_version.md",
-    practical_note_file="practical_note.md",
+    summary_statement_file="text/summary_statement.md",
+    version_statement_file="text/pdf_version.md",
+    practical_note_file="text/practical_note.md",
     source_fname="references.html",
     source_line_templ=source_line,
     source_mkd_templ=sources_template,
@@ -454,11 +457,12 @@ def make_html(
     toc_lines = []
     write_later = []
     page_paths = {"pre": [], "main": [], "post": []}
+    info_folder = os.path.join(folder, info_folder)
     for (poem_name, poem_page), flowers in use_toc.items():
         toc_lines.append(toc_main.format(poem_name=poem_name))
         for flower in flowers:
             out = make_page(
-                folder,
+                info_folder,
                 flower,
                 poem_name,
                 poem_page,
@@ -522,12 +526,13 @@ def make_html(
 
     pre_toc_lines = []
     for section_name, link in use_pre_toc.items():
-        item = pre_item_templ.format(item_name=section_name, item_path=link)
+        local_link = os.path.split(link)[-1]
+        item = pre_item_templ.format(item_name=section_name, item_path=local_link)
         ht = mk2.markdown(open(link.replace("html", "md"), "r").read())
         full_ht = pre_item_html_templ.format(
             page_type="org_page", page_title=section_name, formatted_markdown=ht
         )
-        fp = os.path.join(output_folder, link)
+        fp = os.path.join(output_folder, local_link)
         with open(fp, "wt") as f:
             f.write(full_ht)
         page_paths["pre"].append(fp)
@@ -661,8 +666,8 @@ def make_tex_groups(html_pages, tf, css):
 
 
 def compile_latex(
-        fp,
-        n_times=2,
+    fp,
+    n_times=2,
 ):
     trunk, _ = os.path.split(fp)
     for i in range(n_times):

@@ -1,0 +1,15 @@
+[picture]
+path = BONNIE_tomatoes_iStock-481349128-1800px_9f8f5390-a418-4d91-a3d0-00ae0b7900cb.jpg
+color_point = 1001, 690
+crop_window = 0, 0
+orientation = horizontal
+center = middle middle
+source_text = Bonnie Plants
+source_url = https://bonnieplants.com/blogs/how-to-grow/growing-tomatoes
+box_side = left
+
+[info]
+Type = Herbaceous annual or perennial vine
+Family = Solanaceae
+Sources = https://en.wikipedia.org/wiki/Tomato
+tomato-plant_56 = "And some things / have the nerve to be getting started, / clusters of tomatoes"

@@ -5,7 +5,8 @@
    2. How is the page laid out?
    3. Implement it and experiment
 ** DONE Decide on pagination of online version
-** TODO Figure out a cover image
+** STARTED Figure out a cover image
+- State "STARTED"    from "TODO"       [2024-03-23 Sat 20:24]
    - Commission one from Zaina or Jane?
    - Use an edit or crop of the photos I took? 
 ** DONE Decide how to represent non-flower-named poems
@@ -17,11 +18,15 @@
 ** DONE Make hitting TOC on a particular page go to that spot in TOC
 ** TODO Spruce up the TOC
    - Use the cover image? Use the color sequence?
-** TODO Clean up pdf version
+** DONE Clean up pdf version
+- State "DONE"       from "STARTED"    [2024-03-23 Sat 20:24]
+- State "STARTED"    from "TODO"       [2024-03-23 Sat 20:24]
 - exclude "practical note"
 - fix links in sources
 - fix internal links to not look so weird
 - include cover
+** TODO Write a readme for the github
+** TODO Move the info files into a folder so the directory is less cluttered
    
 * Images
 ** DONE Find sources for all images
@@ -46,7 +51,9 @@
 ** TODO Make some visualizations
 ** DONE Fix issues with Jacobs ladder
 ** DONE Make links more visible
-** TODO Get rid of weird white artifact
+** DONE Get rid of weird white artifact
+- State "DONE"       from "STARTED"    [2024-03-23 Sat 20:24]
+- State "STARTED"    from "TODO"       [2024-03-23 Sat 20:24]
 ** DONE Maybe emphasize poem quote more somehow
 ** DONE Change some text to be white
 ** TODO On each page, add list of links to all other appearances of that plant

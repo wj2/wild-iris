@@ -1,0 +1,1 @@
+__Practical notes:__ There is a navigation bar at the top of each page. Hover over italicized words in "Type" section to see the definition from the glossary. Hover over the number(s) in the "References" section to see the reference.
