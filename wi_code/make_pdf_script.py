@@ -1,4 +1,3 @@
-
 import os
 import shutil
 import argparse
@@ -11,13 +10,13 @@ def create_parser():
     parser = argparse.ArgumentParser(
         description="generate the html for the botanical companion"
     )
-    parser.add_argument("-i", "--information_folder",
-                        default=".")
-    parser.add_argument("-o", "--output_folder",
-                        default=".")
+    parser.add_argument("-i", "--information_folder", default=".")
+    parser.add_argument("-o", "--output_folder", default=".")
 
     parser.add_argument("--resave_images", default=False, action="store_true")
     parser.add_argument("--make_pdf", default=False, action="store_true")
+    parser.add_argument("--resave_pdfs", default=False, action="store_true")
+    parser.add_argument("--lazy_compile", default=False, action="store_true")
     return parser
 
 
@@ -36,6 +35,13 @@ if __name__ == "__main__":
     if args.resave_images or not images_exist:
         img.resave_images(args.information_folder, out_folder=formatted_pic_folder)
 
-    page_paths = rf.make_html(
-        args.information_folder, output_folder=args.output_folder
+    page_path = rf.make_tex(
+        args.information_folder,
+        output_folder=args.output_folder,
+        resave_pdfs=args.resave_pdfs,
     )
+    if args.lazy_compile:
+        n_times = 1
+    else:
+        n_times = 2
+    rf.compile_latex(page_path, n_times=n_times)

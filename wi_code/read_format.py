@@ -301,12 +301,13 @@ def make_tex(
     toc_template=toc_template_tex,
     toc_main=toc_main,
     toc_sub=toc_sub,
-    tex_fname="combined.tex",
+    tex_fname="a_botanical_companion_to_the-wild-iris.tex",
     toc_tex_templ=outer_tex,
     gloss_line_templ=glossary_line,
     gloss_mkd_templ=glossary_template_tex,
     gloss_tex_templ=inner_tex,
     summary_statement_file="summary_statement.md",
+    version_statement_file="web_version.md",
     source_line_templ=source_tex_line,
     source_mkd_templ=sources_tex_template,
     source_html_templ=inner_tex,
@@ -376,6 +377,8 @@ def make_tex(
     pre_full = "\n".join(pre_toc_lines)
 
     summary_statement = md_to_tex_file(summary_statement_file)
+    version_statement = md_to_tex_file(version_statement_file)
+    summary_statement = "\n\n".join((summary_statement, version_statement))
     pre_full = "{}\n \clearpage {}".format(summary_statement, pre_full)
     toc_full = toc_template.format(
         summary_statement="",
@@ -433,6 +436,7 @@ def make_html(
     end_nav_bar_templ=end_nav_bar_template,
     beg_nav_bar_templ=beg_nav_bar_template,
     summary_statement_file="summary_statement.md",
+    version_statement_file="pdf_version.md",
     practical_note_file="practical_note.md",
     source_fname="references.html",
     source_line_templ=source_line,
@@ -533,6 +537,9 @@ def make_html(
     main_items = "\n".join(toc_lines)
 
     summary_statement = open(summary_statement_file, "r").read()
+    version_statement = open(version_statement_file, "r").read()
+    summary_statement = "\n\n".join((summary_statement, version_statement))
+
     practical_note = open(practical_note_file, "r").read()
     summary_statement = "\n".join((summary_statement, practical_note))
     toc_html = mk2.markdown(
@@ -651,6 +658,18 @@ def make_tex_groups(html_pages, tf, css):
         tex_fragments.append(fragment)
     tg = "\clearpage".join(tex_fragments)
     return tg
+
+
+def compile_latex(
+        fp,
+        n_times=2,
+):
+    trunk, _ = os.path.split(fp)
+    for i in range(n_times):
+        subprocess.run(["pdflatex", "--output-directory", trunk, fp])
+    name, _ = os.path.splitext(fp)
+    file = name + ".pdf"
+    return file
 
 
 def make_tex_and_pdf(
