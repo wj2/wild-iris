@@ -595,13 +595,6 @@ def read_info(*fls, folder=""):
     return parser
 
 
-def get_num_pages(pdf_file):
-    with open(pdf_file, "rb") as f:
-        r = pdf.PdfFileReader(f)
-        n_pages = r.numPages
-    return n_pages
-
-
 def make_temp_css(css, folder, page_num, targ_string="/* REPLACE HERE */"):
     with open(css, "r") as cf:
         txt = cf.read()
@@ -622,47 +615,10 @@ def make_temp_css(css, folder, page_num, targ_string="/* REPLACE HERE */"):
 
 
 def _url_fetcher(url, *args, **kwargs):
-    print(url)
     url = url.strip("file:")
-    print(url)
     f = open(url, "rb").read()
-    print(url)
     out = {"string": f}
     return out
-
-
-def make_pdf_groups(folder, paths, css, max_num=10, page_num=0):
-    page_list = []
-    if max_num is not None:
-        paths = paths[:max_num]
-    for html_path in paths:
-        _, name_ext = os.path.split(html_path)
-        name, ext = os.path.splitext(name_ext)
-        # temp_css = make_temp_css(css, folder, page_num)
-        temp_css = css
-        out_path = os.path.join(folder, name + ".pdf")
-        p_html = wp.HTML(filename=html_path, url_fetcher=_url_fetcher)
-        p_html.write_pdf(target=out_path, stylesheets=(temp_css,))
-        page_list.append(out_path)
-        page_num += get_num_pages(out_path)
-    return page_list, page_num
-
-
-def make_tex_groups(html_pages, tf, css):
-    tex_fragments = []
-    pattern = "\\\\begin\{document\}(?P<main>.*)\\\end\{document\}"
-    pattern = re.compile(pattern, flags=re.DOTALL)
-    for page in html_pages:
-        _, name = os.path.split(page)
-        name, _ = os.path.splitext(name)
-        new_path = os.path.join(tf, name + ".tex")
-        subprocess.run(["pandoc", page, "-s", "-o", new_path])
-        tex = open(new_path, "r").read()
-        m = re.search(pattern, tex)
-        fragment = m.groups("main")[0]
-        tex_fragments.append(fragment)
-    tg = "\clearpage".join(tex_fragments)
-    return tg
 
 
 def compile_latex(
