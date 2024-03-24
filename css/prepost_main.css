@@ -1,0 +1,155 @@
+/* PREPOST PAGES */
+@page {
+    /* REPLACE HERE */
+    size: 5.5in 8.5in;
+    margin-left: .5cm;
+    margin-right: .5cm;
+}
+
+/* COMMON PROPERTIES */
+/* Title */
+h1 {
+    font-style: italic;
+    margin-top: 0px;
+}
+
+a {
+    text-decoration: none;
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: bold;
+    color: inherit; 
+    display: inline-block;
+}
+
+hr {
+    color: inherit;
+}
+
+body.flower_page {
+    background-color: rgb(50, 50, 50);
+    display: flex;
+    justify-content: center;
+}
+
+body.org_page {
+    background: #FFFFFF;
+    color: #000305;
+    font-size: 90%; /* Base font size: 14px */
+    font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    line-height: 1.429;
+    padding: 0;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: left; 
+    max-width: 420pt;
+    min-height: 80vh;
+    position: relative;
+}
+
+body.org_page a {
+    color: rgb(100, 100, 255);
+}
+
+body.org_page p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+
+#navlist {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+}
+
+.navitem {
+    float: left;
+    width: 33.33%;
+}
+
+.navitem a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  opacity: .3;
+}
+
+.navitem a:hover {
+    opacity: 1;
+}
+
+/* Page org */
+div.wi_horizontal_page {
+    background-repeat: no-repeat;
+    background-size: 11in, 8.5in;
+    height: 8.5in;
+    width: 11in;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    background-position: center;
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    position: relative;
+}
+div.wi_vertical_page {
+    background-repeat: no-repeat;
+    background-size: 5.5in, 8.5in;
+    height: 8.5in;
+    width: 5.5in;
+    border-style: solid;
+    border-width: 0px;
+    background-position: center;
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    position: relative;
+}
+
+div.flower_box{
+    font-size: 85%; 
+    font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    line-height: 1.2;
+
+    margin: .5in;
+    text-align: left; 
+    width: 3.5in;
+    box-sizing: border-box;
+    padding: .1in;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+    position: absolute;
+    bottom: 0in;
+}
+
+div.picture_link {
+    /* make semitransparent somehow */
+    font-size: 70%; 
+    font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    line-height: 1.2;
+    margin: 0.1in;
+    position: absolute;
+    padding: .01in;
+    bottom: 0in;
+    right: 0in;
+    background-color:rgb(200, 200, 200);
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+
+
