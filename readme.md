@@ -9,21 +9,24 @@ The repository relies on a few external packages:
 * matplotlib
 * markdown2
 * weasyprint
+
 as well as on many core python packages. 
 
 ## Usage
+### Web version
 To generate the web version of the zine in FOLDER, run:
 ```
 python -m wi_code.make_website_script --output_folder FOLDER
 ```
-from this directory. FOLDER/index.html will then be the root page of the zine. 
+from this directory. Once it completes,
+`FOLDER/index.html`
+will then be the root page of the zine. 
 
+### PDF version
 To generate the pdf version of the zine in FOLDER, run:
 ```
 python -m wi_code.make_pdf_script --output_folder FOLDER
 ```
 from this directory. Once it completes
-```
-FOLDER/a_botanical_companion_to_the-wild-iris.pdf 
-```
+`FOLDER/a_botanical_companion_to_the-wild-iris.pdf`
 will be the pdf version of the zine. The pdf version of the zine additionally requires that latex is installed and `pdflatex` is on the path. 
