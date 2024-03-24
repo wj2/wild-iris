@@ -1,6 +1,6 @@
 # A botanical companion to _The Wild Iris_
 
-This code (and included images) can be used to generate both the [web](https://wj2.github.io/wild_iris/) and [pdf]() versions of the zine A botanical companion to The Wild Iris. 
+This code (and included images) can be used to generate both the [web](https://wj2.github.io/wild_iris/) and [pdf](https://wj2.github.io/wild_iris/a_botanical_companion_to_the-wild-iris.pdf) versions of the zine A botanical companion to The Wild Iris. 
 
 ## Dependencies
 The repository relies on a few external packages:
